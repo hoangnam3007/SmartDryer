@@ -34,7 +34,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/smartDryer?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
     username: root
-    password:
+    password: Nam@2003
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -43,9 +43,15 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update # This ensures Hibernate updates the database schema automatically.
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect # Specify the dialect for MySQL
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev
   mail:
     host: localhost
     port: 25

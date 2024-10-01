@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20240920094303"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "statusNew",
+      "fieldType": "OrderStatus",
+      "fieldValues": "NEW,ASSIGNED,CANCEL,DELAY,HOLD,FINISH"
+    },
+    {
+      "fieldName": "statusOld",
+      "fieldType": "OrderStatus",
+      "fieldValues": "NEW,ASSIGNED,CANCEL,DELAY,HOLD,FINISH"
+    },
+    {
+      "fieldName": "modifiedDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "HistoryOrder",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "order",
+      "relationshipName": "order",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

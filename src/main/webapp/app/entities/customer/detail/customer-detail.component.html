@@ -1,0 +1,44 @@
+<form name="viewForm">
+  <div class="modal-header">
+    <h4 class="modal-title" jhiTranslate="entity.action.view">View Customer Details</h4>
+  </div>
+
+  <div class="modal-body">
+    <dl class="row-md jh-entity-details">
+      <dt><span jhiTranslate="global.field.id">ID</span></dt>
+      <dd>{{ customer?.id }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.customer.userName">User Name</span></dt>
+      <dd>{{ customer?.userName }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.customer.address">Address</span></dt>
+      <dd>{{ customer?.address }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.customer.createBy">Create By</span></dt>
+      <dd>{{ customer?.createBy }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.customer.mobile">Mobile</span></dt>
+      <dd>{{ customer?.mobile }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.customer.email">Email</span></dt>
+      <dd>{{ customer?.email }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.customer.note">Note</span></dt>
+      <dd>
+        <textarea class="form-control" rows="4" readonly>{{ customer?.note }}</textarea>
+      </dd>
+      <dt><span jhiTranslate="smartDryerApp.customer.createDate">Created Date</span></dt>
+      <dd>{{ customer?.createDate }}</dd>
+    </dl>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-end">
+    <button type="button" id="close_btn" class="btn btn-info" data-dismiss="modal" (click)="back()">
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Cancel</span>
+    </button>
+
+    <button type="button" id="approve_btn" class="btn btn-success" data-dismiss="modal" (click)="customer ? approve(customer) : null">
+      <fa-icon icon="check"></fa-icon>&nbsp;<span jhiTranslate="entity.action.approved">Approve</span>
+    </button>
+  </div>
+</form>

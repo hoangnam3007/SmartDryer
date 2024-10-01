@@ -1,0 +1,135 @@
+{
+  "annotations": {
+    "changelogDate": "20240920094304"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "entityTableName": "jhi_order",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "finishDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "OrderStatus",
+      "fieldValues": "NEW,ASSIGNED,CANCEL,DELAY,HOLD,FINISH"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "saleNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "techNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "materialSource",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "cusName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cusAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cusMobile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "imageURL",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "appointmentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "activation",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "assignBy",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Order",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "historyOrder",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "historyOrder",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "customer",
+      "relationshipName": "customer",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "sale",
+      "relationshipName": "sale",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "staff",
+      "relationshipName": "staff",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "sourceOrder",
+      "relationshipName": "sourceOrder",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "province",
+      "relationshipName": "province",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "district",
+      "relationshipName": "district",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "ward",
+      "relationshipName": "ward",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

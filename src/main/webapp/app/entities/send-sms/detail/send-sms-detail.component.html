@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (sendSMS(); as sendSMSRef) {
+      <div>
+        <h2 data-cy="sendSMSDetailsHeading"><span jhiTranslate="smartDryerApp.sendSMS.detail.title">Send SMS</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ sendSMSRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sendSMS.mobile">Mobile</span></dt>
+          <dd>
+            <span>{{ sendSMSRef.mobile }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sendSMS.content">Content</span></dt>
+          <dd>
+            <span>{{ sendSMSRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sendSMS.status">Status</span></dt>
+          <dd>
+            <span>{{ sendSMSRef.status }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sendSMS.createDate">Create Date</span></dt>
+          <dd>
+            <span>{{ sendSMSRef.createDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sendSMS.sendedDate">Sended Date</span></dt>
+          <dd>
+            <span>{{ sendSMSRef.sendedDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sendSMS.type">Type</span></dt>
+          <dd>
+            <span>{{ sendSMSRef.type }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/send-sms', sendSMSRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

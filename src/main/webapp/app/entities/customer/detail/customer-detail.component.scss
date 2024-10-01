@@ -1,0 +1,32 @@
+.modal-body {
+  padding: 15px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-header h4 {
+  font-weight: bold;
+}
+
+button.btn {
+  padding: 10px 15px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+button#close_btn {
+  background-color: #17a2b8;
+  border: none;
+  color: white;
+}
+
+dl.jh-entity-details dt {
+  font-weight: bold;
+}
+
+dl.jh-entity-details dd {
+  margin-left: 0;
+}

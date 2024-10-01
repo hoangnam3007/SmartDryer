@@ -1,0 +1,182 @@
+<div>
+  <h2 id="page-heading" data-cy="StaffHeading">
+    <span jhiTranslate="smartDryerApp.staff.home.title">Staff</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="smartDryerApp.staff.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-staff"
+        [routerLink]="['/staff/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="smartDryerApp.staff.home.createLabel">Create a new Staff</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (staff?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="smartDryerApp.staff.home.notFound">No Staff found</span>
+    </div>
+  }
+
+  @if (staff && staff.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="userName">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.userName">User Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fullName">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.fullName">Full Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="mobile">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.mobile">Mobile</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.email">Email</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="note">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.note">Note</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createDate">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.createDate">Create Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="modifiedDate">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.modifiedDate">Modified Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="isLead">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.isLead">Is Lead</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imageURL">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.imageURL">Image URL</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="staffLead.id">
+              <div class="d-flex">
+                <span jhiTranslate="smartDryerApp.staff.staffLead">Staff Lead</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (staff of staff; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/staff', staff.id, 'view']">{{ staff.id }}</a>
+              </td>
+              <td>{{ staff.userName }}</td>
+              <td>{{ staff.fullName }}</td>
+              <td>{{ staff.mobile }}</td>
+              <td>{{ staff.email }}</td>
+              <td>{{ staff.note }}</td>
+              <td>{{ staff.createDate | formatMediumDate }}</td>
+              <td>{{ staff.modifiedDate | formatMediumDate }}</td>
+              <td>{{ staff.isLead }}</td>
+              <td>{{ staff.imageURL }}</td>
+              <td>
+                @if (staff.staffLead) {
+                  <div>
+                    <a [routerLink]="['/staff', staff.staffLead.id, 'view']">{{ staff.staffLead.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/staff', staff.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/staff', staff.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(staff)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (staff && staff.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

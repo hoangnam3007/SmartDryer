@@ -1,0 +1,27 @@
+{
+  "smartDryerApp": {
+    "cusNote": {
+      "home": {
+        "title": "Cus Notes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Cus Note",
+        "createOrEditLabel": "Create or edit a Cus Note",
+        "notFound": "No Cus Notes found"
+      },
+      "created": "A new Cus Note is created with identifier {{ param }}",
+      "updated": "A Cus Note is updated with identifier {{ param }}",
+      "deleted": "A Cus Note is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cus Note {{ id }}?"
+      },
+      "detail": {
+        "title": "Cus Note"
+      },
+      "id": "ID",
+      "createBy": "Create By",
+      "content": "Content",
+      "createDate": "Create Date",
+      "customer": "Customer"
+    }
+  }
+}

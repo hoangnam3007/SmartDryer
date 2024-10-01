@@ -7,8 +7,21 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "adminAuthority": "Admin Authority",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "cusNote": "Cus Note",
+        "customer": "Customer",
+        "customerEquipment": "Customer Equipment",
+        "district": "District",
+        "equipment": "Equipment",
+        "historyOrder": "History Order",
+        "order": "Order",
+        "province": "Province",
+        "sale": "Sale",
+        "sendSms": "Send SMS",
+        "sourceOrder": "Source Order",
+        "staff": "Staff",
+        "ward": "Ward"
       },
       "account": {
         "main": "Account",
@@ -99,7 +112,8 @@
       "open": "Open",
       "save": "Save",
       "view": "View",
-      "show": "Show {{otherEntity}}"
+      "show": "Show {{otherEntity}}",
+      "approved": "Approved"
     },
     "detail": {
       "field": "Field",
@@ -125,6 +139,16 @@
       "set": "Following filters are set",
       "clear": "Clear filter",
       "clearAll": "Clear all filters"
+    },
+    "customer": {
+      "id": "id",
+      "username": "UserName",
+      "displayname": "DisplayName",
+      "address": "Address",
+      "createBy": "CreateBy",
+      "mobile": "Mobile",
+      "email": "Email",
+      "createdate": "CreateDate"
     }
   },
   "error": {

@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20240920094307"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "entityTableName": "send_sms",
+  "fields": [
+    {
+      "fieldName": "mobile",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "sendedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "SendSMS",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

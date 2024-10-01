@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (sale(); as saleRef) {
+      <div>
+        <h2 data-cy="saleDetailsHeading"><span jhiTranslate="smartDryerApp.sale.detail.title">Sale</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ saleRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sale.userName">User Name</span></dt>
+          <dd>
+            <span>{{ saleRef.userName }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sale.fullName">Full Name</span></dt>
+          <dd>
+            <span>{{ saleRef.fullName }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sale.mobile">Mobile</span></dt>
+          <dd>
+            <span>{{ saleRef.mobile }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sale.email">Email</span></dt>
+          <dd>
+            <span>{{ saleRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sale.note">Note</span></dt>
+          <dd>
+            <span>{{ saleRef.note }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sale.createDate">Create Date</span></dt>
+          <dd>
+            <span>{{ saleRef.createDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.sale.modifiedDate">Modified Date</span></dt>
+          <dd>
+            <span>{{ saleRef.modifiedDate | formatMediumDate }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/sale', saleRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

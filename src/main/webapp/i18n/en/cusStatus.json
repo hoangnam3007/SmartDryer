@@ -1,0 +1,10 @@
+{
+  "smartDryerApp": {
+    "CusStatus": {
+      "null": "",
+      "NEW": "NEW",
+      "COMPLETED": "COMPLETED",
+      "APPROVED": "APPROVED"
+    }
+  }
+}

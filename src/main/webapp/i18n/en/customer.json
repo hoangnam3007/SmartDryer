@@ -1,0 +1,41 @@
+{
+  "smartDryerApp": {
+    "customer": {
+      "home": {
+        "title": "Customers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Customer",
+        "createOrEditLabel": "Create or edit a Customer",
+        "notFound": "No Customers found"
+      },
+      "created": "A new Customer is created with identifier {{ param }}",
+      "updated": "A Customer is updated with identifier {{ param }}",
+      "deleted": "A Customer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Customer {{ id }}?"
+      },
+      "detail": {
+        "title": "Customer"
+      },
+      "id": "ID",
+      "userName": "User Name",
+      "code": "Code",
+      "displayName": "Display Name",
+      "address": "Address",
+      "createBy": "Create By",
+      "mobile": "Mobile",
+      "email": "Email",
+      "source": "Source",
+      "note": "Note",
+      "status": "Status",
+      "createDate": "Create Date",
+      "modifiedDate": "Modified Date",
+      "customerEquipment": "Customer Equipment",
+      "order": "Order",
+      "cusNote": "Cus Note",
+      "province": "Province",
+      "district": "District",
+      "ward": "Ward"
+    }
+  }
+}

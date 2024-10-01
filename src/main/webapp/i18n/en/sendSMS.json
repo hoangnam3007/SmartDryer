@@ -1,0 +1,29 @@
+{
+  "smartDryerApp": {
+    "sendSMS": {
+      "home": {
+        "title": "Send SMS",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Send SMS",
+        "createOrEditLabel": "Create or edit a Send SMS",
+        "notFound": "No Send SMS found"
+      },
+      "created": "A new Send SMS is created with identifier {{ param }}",
+      "updated": "A Send SMS is updated with identifier {{ param }}",
+      "deleted": "A Send SMS is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Send SMS {{ id }}?"
+      },
+      "detail": {
+        "title": "Send SMS"
+      },
+      "id": "ID",
+      "mobile": "Mobile",
+      "content": "Content",
+      "status": "Status",
+      "createDate": "Create Date",
+      "sendedDate": "Sended Date",
+      "type": "Type"
+    }
+  }
+}

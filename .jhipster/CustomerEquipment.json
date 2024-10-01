@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20240920094300"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "quantily",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "CustomerEquipment",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "customer",
+      "relationshipName": "customer",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "equipment",
+      "relationshipName": "equipment",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

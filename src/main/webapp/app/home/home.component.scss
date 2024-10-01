@@ -1,16 +1,12 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
 .hipster {
   display: inline-block;
-  width: 347px;
-  height: 497px;
+  // width: 347px;
+  // height: 497px;
   background: url('../../content/images/jhipster_family_member_1.svg') no-repeat center top;
   background-size: contain;
 }
 
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
+/* Responsive image handling */
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
   only screen and (-moz-min-device-pixel-ratio: 2),
   only screen and (-o-min-device-pixel-ratio: 2/1),
@@ -19,5 +15,181 @@ Main page styles
   .hipster {
     background: url('../../content/images/jhipster_family_member_1.svg') no-repeat center top;
     background-size: contain;
+  }
+}
+
+/* Address styles */
+.address-section {
+  margin-bottom: 30px;
+}
+
+.address-section h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.address-section p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.address-section a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.address-section a:hover {
+  text-decoration: underline;
+}
+
+/* Form styles */
+form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+/* Spacing between form fields */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Button styling */
+button.btn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* General container spacing */
+.row {
+  margin-bottom: 20px;
+}
+
+/* Media queries to make the form and address responsive */
+@media (max-width: 768px) {
+  .address-section h3 {
+    font-size: 1.25rem;
+  }
+
+  .form-control {
+    padding: 8px;
+    font-size: 0.875rem;
+  }
+
+  button.btn-primary {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+  }
+
+  .row .col-md-6 {
+    margin-bottom: 15px;
+  }
+}
+
+/* Button Styling */
+.admin-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  /* Make buttons taller */
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-radius: 10px;
+  /* Rounded corners */
+  text-align: center;
+  color: white;
+  /* Ensure text is visible */
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease;
+  /* Add hover transitions */
+  text-decoration: none;
+}
+
+/* Add hover effect */
+.admin-button:hover {
+  transform: scale(1.05);
+  /* Slight zoom on hover */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  /* Add a shadow effect */
+}
+
+/* Button Colors */
+.admin-button.approved {
+  background-color: #007bff;
+  /* Blue */
+}
+
+.admin-button.assign {
+  background-color: #17a2b8;
+  /* Teal */
+}
+
+.admin-button.history {
+  background-color: #28a745;
+  /* Green */
+}
+
+.admin-button.complete {
+  background-color: #dc3545;
+  /* Red */
+}
+
+/* Responsive button styling */
+@media (max-width: 768px) {
+  .admin-button {
+    height: 90px;
+    /* Adjust height for smaller screens */
+    font-size: 1rem;
+    /* Adjust font size */
   }
 }

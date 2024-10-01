@@ -1,0 +1,26 @@
+{
+  "smartDryerApp": {
+    "customerEquipment": {
+      "home": {
+        "title": "Customer Equipments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Customer Equipment",
+        "createOrEditLabel": "Create or edit a Customer Equipment",
+        "notFound": "No Customer Equipments found"
+      },
+      "created": "A new Customer Equipment is created with identifier {{ param }}",
+      "updated": "A Customer Equipment is updated with identifier {{ param }}",
+      "deleted": "A Customer Equipment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Customer Equipment {{ id }}?"
+      },
+      "detail": {
+        "title": "Customer Equipment"
+      },
+      "id": "ID",
+      "quantily": "Quantily",
+      "customer": "Customer",
+      "equipment": "Equipment"
+    }
+  }
+}

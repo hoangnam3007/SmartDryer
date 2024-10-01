@@ -1,0 +1,35 @@
+<form name="viewForm">
+  <div class="modal-header">
+    <h4 class="modal-title" jhiTranslate="entity.action.view">Assign Team and Staff</h4>
+  </div>
+
+  <div class="modal-body">
+    <dl class="row-md jh-entity-details">
+      <!-- Team Selection -->
+      <!-- <dt><span>Select Team</span></dt>
+        <dd>
+          <select class="form-control" [(ngModel)]="selectedTeam" name="team" required>
+            <option *ngFor="let staff of staffs" [value]="staff.id">{{ team.name }}</option>
+          </select>
+        </dd> -->
+
+      <!-- Staff Selection -->
+      <dt><span>Select Staff</span></dt>
+      <dd>
+        <select class="form-control" [(ngModel)]="selectedStaffId" id="staff" name="staff" required>
+          <option *ngFor="let staff of staffs" [value]="staff.id">{{ staff.fullName }}</option>
+        </select>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-end">
+    <button type="button" id="close_btn" class="btn btn-info" data-dismiss="modal" (click)="back()">
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Cancel</span>
+    </button>
+
+    <button type="button" id="approve_btn" class="btn btn-success" data-dismiss="modal" (click)="assignStaff()">
+      <fa-icon icon="check"></fa-icon>&nbsp;<span jhiTranslate="entity.action.approved">Assign</span>
+    </button>
+  </div>
+</form>

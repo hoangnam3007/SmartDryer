@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (ward(); as wardRef) {
+      <div>
+        <h2 data-cy="wardDetailsHeading"><span jhiTranslate="smartDryerApp.ward.detail.title">Ward</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ wardRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.ward.code">Code</span></dt>
+          <dd>
+            <span>{{ wardRef.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.ward.name">Name</span></dt>
+          <dd>
+            <span>{{ wardRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.ward.district">District</span></dt>
+          <dd>
+            @if (ward()!.district) {
+              <div>
+                <a [routerLink]="['/district', ward()!.district?.id, 'view']">{{ wardRef.district?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/ward', wardRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

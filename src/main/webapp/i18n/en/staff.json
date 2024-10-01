@@ -1,0 +1,34 @@
+{
+  "smartDryerApp": {
+    "staff": {
+      "home": {
+        "title": "Staff",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Staff",
+        "createOrEditLabel": "Create or edit a Staff",
+        "notFound": "No Staff found"
+      },
+      "created": "A new Staff is created with identifier {{ param }}",
+      "updated": "A Staff is updated with identifier {{ param }}",
+      "deleted": "A Staff is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Staff {{ id }}?"
+      },
+      "detail": {
+        "title": "Staff"
+      },
+      "id": "ID",
+      "userName": "User Name",
+      "fullName": "Full Name",
+      "mobile": "Mobile",
+      "email": "Email",
+      "note": "Note",
+      "createDate": "Create Date",
+      "modifiedDate": "Modified Date",
+      "isLead": "Is Lead",
+      "imageURL": "Image URL",
+      "order": "Order",
+      "staffLead": "Staff Lead"
+    }
+  }
+}

@@ -1,0 +1,146 @@
+// Define all your entities
+entity Customer {
+  userName String required unique,
+  code String unique,
+  displayName String,
+  address String,
+  createBy String,
+  mobile String,
+  email String,
+  source String,
+  note String,
+  status CusStatus,
+  createDate LocalDate,
+  modifiedDate LocalDate
+}
+
+enum CusStatus {
+  NEW, COMPLETED, APPROVED
+}
+
+entity CusNote {
+  createBy String required,
+  content String required,
+  createDate LocalDate
+}
+
+entity Equipment {
+  equipmentCode String required,
+  description String
+}
+
+entity CustomerEquipment {
+  quantily Integer
+}
+
+entity Sale {
+  userName String required unique,
+  fullName String required,
+  mobile String,
+  email String,
+  note String,
+  createDate LocalDate,
+  modifiedDate LocalDate
+}
+
+entity Staff {
+  userName String required unique,
+  fullName String required,
+  mobile String,
+  email String,
+  note String,
+  createDate LocalDate,
+  modifiedDate LocalDate,
+  isLead Integer,
+  imageURL String
+}
+
+entity SendSMS {
+  mobile String required,
+  content String,
+  status Integer,
+  createDate LocalDate,
+  sendedDate LocalDate,
+  type Integer
+}
+
+entity Province {
+  code String,
+  name String required
+}
+
+entity District {
+  code String,
+  name String required
+}
+
+entity Ward {
+  code String,
+  name String required
+}
+
+entity Order {
+  code String required,
+  createBy String,
+  createDate LocalDate,
+  finishDate LocalDate,
+  status OrderStatus,
+  amount Long,
+  saleNote String,
+  techNote String,
+  note String,
+  materialSource Integer,
+  cusName String,
+  cusAddress String,
+  cusMobile String,
+  imageURL String,
+  appointmentDate LocalDate,
+  activation Integer,
+  assignBy String
+}
+
+entity SourceOrder {
+  name String required,
+  description String
+}
+
+enum OrderStatus {
+  NEW, ASSIGNED, CANCEL, DELAY, HOLD, FINISH
+}
+
+entity HistoryOrder {
+  modifiedBy String required,
+  statusNew OrderStatus,
+  statusOld OrderStatus,
+  modifiedDate LocalDate
+}
+
+// Define relationships
+relationship OneToMany {
+  Customer to CustomerEquipment{customer},
+  Equipment to CustomerEquipment{equipment},
+  Customer to Order{customer},
+  Sale to Order{sale},
+  Customer to CusNote{customer},
+  Staff to Order{staff},
+  Order to HistoryOrder{order},
+  SourceOrder to Order{sourceOrder},
+  Province to Customer{province},
+  Province to Order{province},
+  District to Customer{district},
+  District to Order{district},
+  Ward to Customer{ward},
+  Ward to Order{ward},
+  Province to District{province},
+  District to Ward{district}
+}
+
+relationship ManyToOne {
+  Staff{staffLead} to Staff
+}
+
+// Use DTOs with MapStruct
+dto Customer, Equipment, CustomerEquipment, Sale, Staff, Order, HistoryOrder, SendSMS, CusNote, SourceOrder, Province, District, Ward with mapstruct
+
+// Enable pagination for these entities
+paginate Customer, Equipment, CustomerEquipment, Sale, Staff, Order, HistoryOrder, SendSMS, CusNote, SourceOrder, Province, District, Ward with pagination

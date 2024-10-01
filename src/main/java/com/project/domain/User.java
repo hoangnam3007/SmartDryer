@@ -1,6 +1,7 @@
 package com.project.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.config.Constants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -80,6 +81,18 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     @Column(name = "reset_date")
     private Instant resetDate = null;
+
+    // Sale relationship (nullable)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sale_id")
+    @JsonIgnoreProperties("user")
+    private Sale sale;
+
+    // Staff relationship (nullable)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "staff_id")
+    @JsonIgnoreProperties("user")
+    private Staff staff;
 
     @JsonIgnore
     @ManyToMany

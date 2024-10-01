@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Order.
+    -->
+    <changeSet id="20240920094304-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="sale_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__sale_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sale"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="staff_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__staff_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="staff"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="source_order_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__source_order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="source_order"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="province_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__province_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="province"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="district_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__district_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="ward_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__ward_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ward"
+                                 />
+    </changeSet>
+</databaseChangeLog>

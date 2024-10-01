@@ -1,0 +1,26 @@
+{
+  "smartDryerApp": {
+    "sourceOrder": {
+      "home": {
+        "title": "Source Orders",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Source Order",
+        "createOrEditLabel": "Create or edit a Source Order",
+        "notFound": "No Source Orders found"
+      },
+      "created": "A new Source Order is created with identifier {{ param }}",
+      "updated": "A Source Order is updated with identifier {{ param }}",
+      "deleted": "A Source Order is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Source Order {{ id }}?"
+      },
+      "detail": {
+        "title": "Source Order"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "order": "Order"
+    }
+  }
+}

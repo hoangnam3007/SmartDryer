@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (historyOrder(); as historyOrderRef) {
+      <div>
+        <h2 data-cy="historyOrderDetailsHeading"><span jhiTranslate="smartDryerApp.historyOrder.detail.title">History Order</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ historyOrderRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.historyOrder.modifiedBy">Modified By</span></dt>
+          <dd>
+            <span>{{ historyOrderRef.modifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.historyOrder.statusNew">Status New</span></dt>
+          <dd>
+            <span [jhiTranslate]="'smartDryerApp.OrderStatus.' + (historyOrderRef.statusNew ?? 'null')">{{
+              { null: '', NEW: 'NEW', ASSIGNED: 'ASSIGNED', CANCEL: 'CANCEL', DELAY: 'DELAY', HOLD: 'HOLD', FINISH: 'FINISH' }[
+                historyOrderRef.statusNew ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.historyOrder.statusOld">Status Old</span></dt>
+          <dd>
+            <span [jhiTranslate]="'smartDryerApp.OrderStatus.' + (historyOrderRef.statusOld ?? 'null')">{{
+              { null: '', NEW: 'NEW', ASSIGNED: 'ASSIGNED', CANCEL: 'CANCEL', DELAY: 'DELAY', HOLD: 'HOLD', FINISH: 'FINISH' }[
+                historyOrderRef.statusOld ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.historyOrder.modifiedDate">Modified Date</span></dt>
+          <dd>
+            <span>{{ historyOrderRef.modifiedDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.historyOrder.order">Order</span></dt>
+          <dd>
+            @if (historyOrder()!.order) {
+              <div>
+                <a [routerLink]="['/order', historyOrder()!.order?.id, 'view']">{{ historyOrderRef.order?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/history-order', historyOrderRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

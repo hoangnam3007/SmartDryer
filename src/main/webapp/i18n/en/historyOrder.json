@@ -1,0 +1,28 @@
+{
+  "smartDryerApp": {
+    "historyOrder": {
+      "home": {
+        "title": "History Orders",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new History Order",
+        "createOrEditLabel": "Create or edit a History Order",
+        "notFound": "No History Orders found"
+      },
+      "created": "A new History Order is created with identifier {{ param }}",
+      "updated": "A History Order is updated with identifier {{ param }}",
+      "deleted": "A History Order is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete History Order {{ id }}?"
+      },
+      "detail": {
+        "title": "History Order"
+      },
+      "id": "ID",
+      "modifiedBy": "Modified By",
+      "statusNew": "Status New",
+      "statusOld": "Status Old",
+      "modifiedDate": "Modified Date",
+      "order": "Order"
+    }
+  }
+}

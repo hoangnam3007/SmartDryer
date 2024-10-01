@@ -50,6 +50,35 @@ public class CacheConfiguration {
             createCache(cm, com.project.domain.User.class.getName());
             createCache(cm, com.project.domain.Authority.class.getName());
             createCache(cm, com.project.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.project.domain.CusNote.class.getName());
+            createCache(cm, com.project.domain.Customer.class.getName());
+            createCache(cm, com.project.domain.Customer.class.getName() + ".customerEquipments");
+            createCache(cm, com.project.domain.Customer.class.getName() + ".orders");
+            createCache(cm, com.project.domain.Customer.class.getName() + ".cusNotes");
+            createCache(cm, com.project.domain.CustomerEquipment.class.getName());
+            createCache(cm, com.project.domain.District.class.getName());
+            createCache(cm, com.project.domain.District.class.getName() + ".customers");
+            createCache(cm, com.project.domain.District.class.getName() + ".orders");
+            createCache(cm, com.project.domain.District.class.getName() + ".wards");
+            createCache(cm, com.project.domain.Equipment.class.getName());
+            createCache(cm, com.project.domain.Equipment.class.getName() + ".customerEquipments");
+            createCache(cm, com.project.domain.HistoryOrder.class.getName());
+            createCache(cm, com.project.domain.Order.class.getName());
+            createCache(cm, com.project.domain.Order.class.getName() + ".historyOrders");
+            createCache(cm, com.project.domain.Province.class.getName());
+            createCache(cm, com.project.domain.Province.class.getName() + ".customers");
+            createCache(cm, com.project.domain.Province.class.getName() + ".orders");
+            createCache(cm, com.project.domain.Province.class.getName() + ".districts");
+            createCache(cm, com.project.domain.Sale.class.getName());
+            createCache(cm, com.project.domain.Sale.class.getName() + ".orders");
+            createCache(cm, com.project.domain.SendSMS.class.getName());
+            createCache(cm, com.project.domain.SourceOrder.class.getName());
+            createCache(cm, com.project.domain.SourceOrder.class.getName() + ".orders");
+            createCache(cm, com.project.domain.Staff.class.getName());
+            createCache(cm, com.project.domain.Staff.class.getName() + ".orders");
+            createCache(cm, com.project.domain.Ward.class.getName());
+            createCache(cm, com.project.domain.Ward.class.getName() + ".customers");
+            createCache(cm, com.project.domain.Ward.class.getName() + ".orders");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,140 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-staff-heading" data-cy="StaffCreateUpdateHeading" jhiTranslate="smartDryerApp.staff.home.createOrEditLabel">
+        Create or edit a Staff
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="smartDryerApp.staff.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let userNameRef = editForm.get('userName')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_userName" jhiTranslate="smartDryerApp.staff.userName">User Name</label>
+          <input type="text" class="form-control" name="userName" id="field_userName" data-cy="userName" formControlName="userName" />
+          @if (userNameRef.invalid && (userNameRef.dirty || userNameRef.touched)) {
+            <div>
+              @if (editForm.get('userName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let fullNameRef = editForm.get('fullName')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fullName" jhiTranslate="smartDryerApp.staff.fullName">Full Name</label>
+          <input type="text" class="form-control" name="fullName" id="field_fullName" data-cy="fullName" formControlName="fullName" />
+          @if (fullNameRef.invalid && (fullNameRef.dirty || fullNameRef.touched)) {
+            <div>
+              @if (editForm.get('fullName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_mobile" jhiTranslate="smartDryerApp.staff.mobile">Mobile</label>
+          <input type="text" class="form-control" name="mobile" id="field_mobile" data-cy="mobile" formControlName="mobile" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_email" jhiTranslate="smartDryerApp.staff.email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_note" jhiTranslate="smartDryerApp.staff.note">Note</label>
+          <input type="text" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createDate" jhiTranslate="smartDryerApp.staff.createDate">Create Date</label>
+          <div class="input-group">
+            <input
+              id="field_createDate"
+              data-cy="createDate"
+              type="text"
+              class="form-control"
+              name="createDate"
+              ngbDatepicker
+              #createDateDp="ngbDatepicker"
+              formControlName="createDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_modifiedDate" jhiTranslate="smartDryerApp.staff.modifiedDate">Modified Date</label>
+          <div class="input-group">
+            <input
+              id="field_modifiedDate"
+              data-cy="modifiedDate"
+              type="text"
+              class="form-control"
+              name="modifiedDate"
+              ngbDatepicker
+              #modifiedDateDp="ngbDatepicker"
+              formControlName="modifiedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="modifiedDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_isLead" jhiTranslate="smartDryerApp.staff.isLead">Is Lead</label>
+          <input type="number" class="form-control" name="isLead" id="field_isLead" data-cy="isLead" formControlName="isLead" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_imageURL" jhiTranslate="smartDryerApp.staff.imageURL">Image URL</label>
+          <input type="text" class="form-control" name="imageURL" id="field_imageURL" data-cy="imageURL" formControlName="imageURL" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_staffLead" jhiTranslate="smartDryerApp.staff.staffLead">Staff Lead</label>
+          <select
+            class="form-control"
+            id="field_staffLead"
+            data-cy="staffLead"
+            name="staffLead"
+            formControlName="staffLead"
+            [compareWith]="compareStaff"
+          >
+            <option [ngValue]="null"></option>
+            @for (staffOption of staffSharedCollection; track $index) {
+              <option [ngValue]="staffOption">{{ staffOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

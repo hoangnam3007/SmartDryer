@@ -1,0 +1,29 @@
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Customer, ICustomer } from '../entities/customer/customer.model';
+import { createRequestOption } from 'app/core/request/request-util';
+import { Pagination } from 'app/core/request/request.model';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
+@Injectable({
+  providedIn: 'root',
+})
+export class HomeService {
+  private apiUrl = '/api/locations';
+  private applicationConfigService = inject(ApplicationConfigService);
+  private customerUrl = this.applicationConfigService.getEndpointFor('api/customers');
+  constructor(private http: HttpClient) {}
+
+  getLocations(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
+  }
+
+  createCustomer(customer: ICustomer): Observable<ICustomer> {
+    return this.http.post<ICustomer>(this.customerUrl, customer);
+  }
+
+  getAllCustomer(req?: Pagination): Observable<HttpResponse<ICustomer[]>> {
+    const options = createRequestOption(req);
+    return this.http.get<ICustomer[]>(this.customerUrl, { params: options, observe: 'response' });
+  }
+}

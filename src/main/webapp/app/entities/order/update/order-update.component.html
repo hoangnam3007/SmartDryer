@@ -1,0 +1,291 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-order-heading" data-cy="OrderCreateUpdateHeading" jhiTranslate="smartDryerApp.order.home.createOrEditLabel">
+        Create or edit a Order
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="smartDryerApp.order.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let codeRef = editForm.get('code')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_code" jhiTranslate="smartDryerApp.order.code">Code</label>
+          <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
+          @if (codeRef.invalid && (codeRef.dirty || codeRef.touched)) {
+            <div>
+              @if (editForm.get('code')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createBy" jhiTranslate="smartDryerApp.order.createBy">Create By</label>
+          <input type="text" class="form-control" name="createBy" id="field_createBy" data-cy="createBy" formControlName="createBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createDate" jhiTranslate="smartDryerApp.order.createDate">Create Date</label>
+          <div class="input-group">
+            <input
+              id="field_createDate"
+              data-cy="createDate"
+              type="text"
+              class="form-control"
+              name="createDate"
+              ngbDatepicker
+              #createDateDp="ngbDatepicker"
+              formControlName="createDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_finishDate" jhiTranslate="smartDryerApp.order.finishDate">Finish Date</label>
+          <div class="input-group">
+            <input
+              id="field_finishDate"
+              data-cy="finishDate"
+              type="text"
+              class="form-control"
+              name="finishDate"
+              ngbDatepicker
+              #finishDateDp="ngbDatepicker"
+              formControlName="finishDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="finishDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="smartDryerApp.order.status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'smartDryerApp.OrderStatus.null' | translate }}</option>
+            @for (orderStatus of orderStatusValues; track $index) {
+              <option [value]="orderStatus">{{ 'smartDryerApp.OrderStatus.' + orderStatus | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_amount" jhiTranslate="smartDryerApp.order.amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_saleNote" jhiTranslate="smartDryerApp.order.saleNote">Sale Note</label>
+          <input type="text" class="form-control" name="saleNote" id="field_saleNote" data-cy="saleNote" formControlName="saleNote" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_techNote" jhiTranslate="smartDryerApp.order.techNote">Tech Note</label>
+          <input type="text" class="form-control" name="techNote" id="field_techNote" data-cy="techNote" formControlName="techNote" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_note" jhiTranslate="smartDryerApp.order.note">Note</label>
+          <input type="text" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_materialSource" jhiTranslate="smartDryerApp.order.materialSource">Material Source</label>
+          <input
+            type="number"
+            class="form-control"
+            name="materialSource"
+            id="field_materialSource"
+            data-cy="materialSource"
+            formControlName="materialSource"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cusName" jhiTranslate="smartDryerApp.order.cusName">Cus Name</label>
+          <input type="text" class="form-control" name="cusName" id="field_cusName" data-cy="cusName" formControlName="cusName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cusAddress" jhiTranslate="smartDryerApp.order.cusAddress">Cus Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="cusAddress"
+            id="field_cusAddress"
+            data-cy="cusAddress"
+            formControlName="cusAddress"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cusMobile" jhiTranslate="smartDryerApp.order.cusMobile">Cus Mobile</label>
+          <input type="text" class="form-control" name="cusMobile" id="field_cusMobile" data-cy="cusMobile" formControlName="cusMobile" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_imageURL" jhiTranslate="smartDryerApp.order.imageURL">Image URL</label>
+          <input type="text" class="form-control" name="imageURL" id="field_imageURL" data-cy="imageURL" formControlName="imageURL" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_appointmentDate" jhiTranslate="smartDryerApp.order.appointmentDate">Appointment Date</label>
+          <div class="input-group">
+            <input
+              id="field_appointmentDate"
+              data-cy="appointmentDate"
+              type="text"
+              class="form-control"
+              name="appointmentDate"
+              ngbDatepicker
+              #appointmentDateDp="ngbDatepicker"
+              formControlName="appointmentDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="appointmentDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_activation" jhiTranslate="smartDryerApp.order.activation">Activation</label>
+          <input
+            type="number"
+            class="form-control"
+            name="activation"
+            id="field_activation"
+            data-cy="activation"
+            formControlName="activation"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_assignBy" jhiTranslate="smartDryerApp.order.assignBy">Assign By</label>
+          <input type="text" class="form-control" name="assignBy" id="field_assignBy" data-cy="assignBy" formControlName="assignBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_customer" jhiTranslate="smartDryerApp.order.customer">Customer</label>
+          <select
+            class="form-control"
+            id="field_customer"
+            data-cy="customer"
+            name="customer"
+            formControlName="customer"
+            [compareWith]="compareCustomer"
+          >
+            <option [ngValue]="null"></option>
+            @for (customerOption of customersSharedCollection; track $index) {
+              <option [ngValue]="customerOption">{{ customerOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_sale" jhiTranslate="smartDryerApp.order.sale">Sale</label>
+          <select class="form-control" id="field_sale" data-cy="sale" name="sale" formControlName="sale" [compareWith]="compareSale">
+            <option [ngValue]="null"></option>
+            @for (saleOption of salesSharedCollection; track $index) {
+              <option [ngValue]="saleOption">{{ saleOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_staff" jhiTranslate="smartDryerApp.order.staff">Staff</label>
+          <select class="form-control" id="field_staff" data-cy="staff" name="staff" formControlName="staff" [compareWith]="compareStaff">
+            <option [ngValue]="null"></option>
+            @for (staffOption of staffSharedCollection; track $index) {
+              <option [ngValue]="staffOption">{{ staffOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_sourceOrder" jhiTranslate="smartDryerApp.order.sourceOrder">Source Order</label>
+          <select
+            class="form-control"
+            id="field_sourceOrder"
+            data-cy="sourceOrder"
+            name="sourceOrder"
+            formControlName="sourceOrder"
+            [compareWith]="compareSourceOrder"
+          >
+            <option [ngValue]="null"></option>
+            @for (sourceOrderOption of sourceOrdersSharedCollection; track $index) {
+              <option [ngValue]="sourceOrderOption">{{ sourceOrderOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_province" jhiTranslate="smartDryerApp.order.province">Province</label>
+          <select
+            class="form-control"
+            id="field_province"
+            data-cy="province"
+            name="province"
+            formControlName="province"
+            [compareWith]="compareProvince"
+          >
+            <option [ngValue]="null"></option>
+            @for (provinceOption of provincesSharedCollection; track $index) {
+              <option [ngValue]="provinceOption">{{ provinceOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_district" jhiTranslate="smartDryerApp.order.district">District</label>
+          <select
+            class="form-control"
+            id="field_district"
+            data-cy="district"
+            name="district"
+            formControlName="district"
+            [compareWith]="compareDistrict"
+          >
+            <option [ngValue]="null"></option>
+            @for (districtOption of districtsSharedCollection; track $index) {
+              <option [ngValue]="districtOption">{{ districtOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ward" jhiTranslate="smartDryerApp.order.ward">Ward</label>
+          <select class="form-control" id="field_ward" data-cy="ward" name="ward" formControlName="ward" [compareWith]="compareWard">
+            <option [ngValue]="null"></option>
+            @for (wardOption of wardsSharedCollection; track $index) {
+              <option [ngValue]="wardOption">{{ wardOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

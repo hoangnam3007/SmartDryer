@@ -1,0 +1,96 @@
+<div>
+  <h2 id="page-heading" data-cy="CustomerHeading">
+    <span jhiTranslate="smartDryerApp.customer.home.title">Customers</span>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (customers?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="smartDryerApp.customer.home.notFound">No Customers found</span>
+    </div>
+  }
+
+  @if (customers && customers.length > 0) {
+    <!-- Customers Table -->
+    <div class="table-responsive">
+      <table class="table table-striped" aria-describedby="customer-management-page-heading">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Display Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Email</th>
+            <th scope="col">Created Date</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers; track: trackId">
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.displayName }}</td>
+            <td>{{ customer.address }}</td>
+            <td>{{ customer.createBy }}</td>
+            <td>{{ customer.mobile }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.createDate }}</td>
+            <td>
+              <div class="btn-group">
+                <!-- <button type="button" (click)="approveCustomer(customer)" class="btn btn-success btn-sm">
+                  <fa-icon icon="check"></fa-icon>
+                  <span class="d-none d-md-inline">Approve</span>
+              </button>
+
+              <button type="button" (click)="decline(customer)" class="btn btn-success btn-sm">
+                <fa-icon icon="remove"></fa-icon>
+                <span class="d-none d-md-inline">decline</span>
+            </button> -->
+
+                <!-- Approve Button -->
+                <button type="button" (click)="approveCustomer(customer)" class="btn btn-success btn-sm me-2">
+                  <fa-icon icon="check"></fa-icon>
+                  <span class="d-none d-md-inline">Approve</span>
+                </button>
+
+                <!-- Decline Button -->
+                <button type="button" (click)="decline(customer)" class="btn btn-danger btn-sm me-2">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline">Decline</span>
+                </button>
+
+                <!-- View Button -->
+                <button type="button" (click)="viewCustomer(customer)" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (customers && customers.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

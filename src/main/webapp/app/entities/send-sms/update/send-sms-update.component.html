@@ -1,0 +1,98 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-send-sms-heading" data-cy="SendSMSCreateUpdateHeading" jhiTranslate="smartDryerApp.sendSMS.home.createOrEditLabel">
+        Create or edit a Send SMS
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="smartDryerApp.sendSMS.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let mobileRef = editForm.get('mobile')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_mobile" jhiTranslate="smartDryerApp.sendSMS.mobile">Mobile</label>
+          <input type="text" class="form-control" name="mobile" id="field_mobile" data-cy="mobile" formControlName="mobile" />
+          @if (mobileRef.invalid && (mobileRef.dirty || mobileRef.touched)) {
+            <div>
+              @if (editForm.get('mobile')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_content" jhiTranslate="smartDryerApp.sendSMS.content">Content</label>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="smartDryerApp.sendSMS.status">Status</label>
+          <input type="number" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createDate" jhiTranslate="smartDryerApp.sendSMS.createDate">Create Date</label>
+          <div class="input-group">
+            <input
+              id="field_createDate"
+              data-cy="createDate"
+              type="text"
+              class="form-control"
+              name="createDate"
+              ngbDatepicker
+              #createDateDp="ngbDatepicker"
+              formControlName="createDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_sendedDate" jhiTranslate="smartDryerApp.sendSMS.sendedDate">Sended Date</label>
+          <div class="input-group">
+            <input
+              id="field_sendedDate"
+              data-cy="sendedDate"
+              type="text"
+              class="form-control"
+              name="sendedDate"
+              ngbDatepicker
+              #sendedDateDp="ngbDatepicker"
+              formControlName="sendedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="sendedDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_type" jhiTranslate="smartDryerApp.sendSMS.type">Type</label>
+          <input type="number" class="form-control" name="type" id="field_type" data-cy="type" formControlName="type" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

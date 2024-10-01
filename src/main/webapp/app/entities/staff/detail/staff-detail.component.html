@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (staff(); as staffRef) {
+      <div>
+        <h2 data-cy="staffDetailsHeading"><span jhiTranslate="smartDryerApp.staff.detail.title">Staff</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ staffRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.userName">User Name</span></dt>
+          <dd>
+            <span>{{ staffRef.userName }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.fullName">Full Name</span></dt>
+          <dd>
+            <span>{{ staffRef.fullName }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.mobile">Mobile</span></dt>
+          <dd>
+            <span>{{ staffRef.mobile }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.email">Email</span></dt>
+          <dd>
+            <span>{{ staffRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.note">Note</span></dt>
+          <dd>
+            <span>{{ staffRef.note }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.createDate">Create Date</span></dt>
+          <dd>
+            <span>{{ staffRef.createDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.modifiedDate">Modified Date</span></dt>
+          <dd>
+            <span>{{ staffRef.modifiedDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.isLead">Is Lead</span></dt>
+          <dd>
+            <span>{{ staffRef.isLead }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.imageURL">Image URL</span></dt>
+          <dd>
+            <span>{{ staffRef.imageURL }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.staff.staffLead">Staff Lead</span></dt>
+          <dd>
+            @if (staff()!.staffLead) {
+              <div>
+                <a [routerLink]="['/staff', staff()!.staffLead?.id, 'view']">{{ staffRef.staffLead?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/staff', staffRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

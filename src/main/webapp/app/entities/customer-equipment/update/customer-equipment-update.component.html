@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-customer-equipment-heading"
+        data-cy="CustomerEquipmentCreateUpdateHeading"
+        jhiTranslate="smartDryerApp.customerEquipment.home.createOrEditLabel"
+      >
+        Create or edit a Customer Equipment
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="smartDryerApp.customerEquipment.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_quantily" jhiTranslate="smartDryerApp.customerEquipment.quantily">Quantily</label>
+          <input type="number" class="form-control" name="quantily" id="field_quantily" data-cy="quantily" formControlName="quantily" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_customer" jhiTranslate="smartDryerApp.customerEquipment.customer">Customer</label>
+          <select
+            class="form-control"
+            id="field_customer"
+            data-cy="customer"
+            name="customer"
+            formControlName="customer"
+            [compareWith]="compareCustomer"
+          >
+            <option [ngValue]="null"></option>
+            @for (customerOption of customersSharedCollection; track $index) {
+              <option [ngValue]="customerOption">{{ customerOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_equipment" jhiTranslate="smartDryerApp.customerEquipment.equipment">Equipment</label>
+          <select
+            class="form-control"
+            id="field_equipment"
+            data-cy="equipment"
+            name="equipment"
+            formControlName="equipment"
+            [compareWith]="compareEquipment"
+          >
+            <option [ngValue]="null"></option>
+            @for (equipmentOption of equipmentSharedCollection; track $index) {
+              <option [ngValue]="equipmentOption">{{ equipmentOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

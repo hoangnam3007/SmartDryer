@@ -1,0 +1,48 @@
+{
+  "smartDryerApp": {
+    "order": {
+      "home": {
+        "title": "Orders",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Order",
+        "createOrEditLabel": "Create or edit a Order",
+        "notFound": "No Orders found"
+      },
+      "created": "A new Order is created with identifier {{ param }}",
+      "updated": "A Order is updated with identifier {{ param }}",
+      "deleted": "A Order is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Order {{ id }}?"
+      },
+      "detail": {
+        "title": "Order"
+      },
+      "id": "ID",
+      "code": "Code",
+      "createBy": "Create By",
+      "createDate": "Create Date",
+      "finishDate": "Finish Date",
+      "status": "Status",
+      "amount": "Amount",
+      "saleNote": "Sale Note",
+      "techNote": "Tech Note",
+      "note": "Note",
+      "materialSource": "Material Source",
+      "cusName": "Cus Name",
+      "cusAddress": "Cus Address",
+      "cusMobile": "Cus Mobile",
+      "imageURL": "Image URL",
+      "appointmentDate": "Appointment Date",
+      "activation": "Activation",
+      "assignBy": "Assign By",
+      "historyOrder": "History Order",
+      "customer": "Customer",
+      "sale": "Sale",
+      "staff": "Staff",
+      "sourceOrder": "Source Order",
+      "province": "Province",
+      "district": "District",
+      "ward": "Ward"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20240920094302"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "equipmentCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Equipment",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "customerEquipment",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipName": "customerEquipment",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

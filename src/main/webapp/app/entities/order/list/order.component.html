@@ -1,0 +1,123 @@
+<div>
+  <h2 id="page-heading" data-cy="OrderHeading">
+    <span jhiTranslate="smartDryerApp.order.home.title">Orders</span>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+  <jhi-alert></jhi-alert>
+
+  <!-- <div class="col-md-3">
+      <label for="statusFilter" class="form-label">Status</label>
+      <select id="statusFilter" class="form-control" [(ngModel)]="selectedStatus">
+        <option [ngValue]="null">All Statuses</option>
+        <option *ngFor="let status of statuses" [ngValue]="status">{{ status }}</option>
+      </select>
+    </div> -->
+
+  <!-- Search Button -->
+  <!-- <div class="row mb-3">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary" (click)="searchOrders()">Search</button>
+    </div>
+  </div> -->
+
+  @if (orders && orders.length > 0) {
+    <!-- Orders Table -->
+    <!-- Filter Section -->
+    <div class="row mb-3">
+      <!-- Province Dropdown -->
+      <div class="col-md-3">
+        <label for="provinceFilter" class="form-label">Province</label>
+        <select
+          id="province"
+          class="form-control"
+          [(ngModel)]="selectedProvinceId"
+          name="province"
+          aria-placeholder="Chọn tỉnh/Thành phố"
+          (change)="onProvinceChange($event)"
+        >
+          <option value="">Chọn Tỉnh/Thành phố</option>
+          <option *ngFor="let province of provinces" [value]="province.id">{{ province.name }}</option>
+        </select>
+      </div>
+
+      <!-- District Dropdown -->
+      <div class="col-md-3">
+        <label for="districtFilter" class="form-label">District</label>
+        <select id="district" class="form-control" [(ngModel)]="selectedDistrictId" name="district" (change)="onDistrictChange($event)">
+          <option value="">Chọn Quận/Huyện</option>
+          <option *ngFor="let district of filterDistricts" [value]="district.id">{{ district.name }}</option>
+        </select>
+      </div>
+
+      <!-- Ward Dropdown -->
+      <div class="col-md-3">
+        <label for="wardFilter" class="form-label">Ward</label>
+        <select id="ward" class="form-control" [(ngModel)]="selectedWardId" name="ward">
+          <option value="">Chọn Phường/Xã</option>
+          <option *ngFor="let ward of filterWards" [value]="ward.id">{{ ward.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped" aria-describedby="order-management-page-heading">
+        <thead>
+          <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Finish Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Address</th>
+            <th scope="col">Customer Mobile</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders; track: trackId">
+            <td>{{ order.code }}</td>
+            <td>{{ order.createBy }}</td>
+            <td>{{ order.createDate }}</td>
+            <td>{{ order.finishDate }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.cusName }}</td>
+            <td>{{ order.cusAddress }}</td>
+            <td>{{ order.cusMobile }}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" (click)="assignOrder(order)" class="btn btn-success btn-sm me-2">
+                  <fa-icon icon="check"></fa-icon>
+                  <span class="d-none d-md-inline">Assign</span>
+                </button>
+                <button type="button" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (orders && orders.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (customerEquipment(); as customerEquipmentRef) {
+      <div>
+        <h2 data-cy="customerEquipmentDetailsHeading">
+          <span jhiTranslate="smartDryerApp.customerEquipment.detail.title">Customer Equipment</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ customerEquipmentRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.customerEquipment.quantily">Quantily</span></dt>
+          <dd>
+            <span>{{ customerEquipmentRef.quantily }}</span>
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.customerEquipment.customer">Customer</span></dt>
+          <dd>
+            @if (customerEquipment()!.customer) {
+              <div>
+                <a [routerLink]="['/customer', customerEquipment()!.customer?.id, 'view']">{{ customerEquipmentRef.customer?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="smartDryerApp.customerEquipment.equipment">Equipment</span></dt>
+          <dd>
+            @if (customerEquipment()!.equipment) {
+              <div>
+                <a [routerLink]="['/equipment', customerEquipment()!.equipment?.id, 'view']">{{ customerEquipmentRef.equipment?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/customer-equipment', customerEquipmentRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
