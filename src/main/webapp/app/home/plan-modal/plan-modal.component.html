@@ -1,0 +1,54 @@
+<form [formGroup]="editForm" (ngSubmit)="save()">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Order Details</h4>
+  </div>
+
+  <div class="modal-body">
+    <!-- Amount -->
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount</label>
+      <input type="number" id="amount" class="form-control" formControlName="amount" />
+      <div *ngIf="editForm.get('amount')?.invalid && (editForm.get('amount')?.touched || editForm.get('amount')?.dirty)">
+        <small class="form-text text-danger" *ngIf="editForm.get('amount')?.errors?.required"> Amount is required. </small>
+      </div>
+    </div>
+
+    <!-- Tech Note -->
+    <div class="mb-3">
+      <label for="techNote" class="form-label">Tech Note</label>
+      <textarea id="techNote" class="form-control" rows="4" formControlName="techNote"></textarea>
+      <div *ngIf="editForm.get('techNote')?.invalid && (editForm.get('techNote')?.touched || editForm.get('techNote')?.dirty)">
+        <small class="form-text text-danger" *ngIf="editForm.get('techNote')?.errors?.maxlength">
+          Tech Note must be less than 500 characters.
+        </small>
+      </div>
+    </div>
+
+    <!-- Source Order -->
+    <div class="mb-3">
+      <label for="sourceOrder" class="form-label">Source Order</label>
+      <select id="sourceOrder" class="form-select" formControlName="sourceOrder">
+        <option *ngFor="let source of sources" [value]="source.id">{{ source.name }}</option>
+      </select>
+      <div *ngIf="editForm.get('sourceOrder')?.invalid && (editForm.get('sourceOrder')?.touched || editForm.get('sourceOrder')?.dirty)">
+        <small class="form-text text-danger" *ngIf="editForm.get('sourceOrder')?.errors?.required"> Source Order is required. </small>
+      </div>
+    </div>
+
+    <!-- Finish Date -->
+    <div class="mb-3">
+      <label for="finishDate" class="form-label">Finish Date</label>
+      <input type="date" id="finishDate" class="form-control" formControlName="finishDate" />
+      <div *ngIf="editForm.get('finishDate')?.invalid && (editForm.get('finishDate')?.touched || editForm.get('finishDate')?.dirty)">
+        <small class="form-text text-danger" *ngIf="editForm.get('finishDate')?.errors?.required"> Finish Date is required. </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()"><fa-icon icon="ban"></fa-icon>&nbsp;Cancel</button>
+    <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+      <fa-icon icon="save"></fa-icon>&nbsp;Save
+    </button>
+  </div>
+</form>

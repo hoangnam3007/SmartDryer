@@ -1,158 +1,55 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    @if (order(); as orderRef) {
-      <div>
-        <h2 data-cy="orderDetailsHeading"><span jhiTranslate="smartDryerApp.order.detail.title">Order</span></h2>
-
-        <hr />
-
-        <jhi-alert-error></jhi-alert-error>
-
-        <jhi-alert></jhi-alert>
-
-        <dl class="row-md jh-entity-details">
-          <dt><span jhiTranslate="global.field.id">ID</span></dt>
-          <dd>
-            <span>{{ orderRef.id }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.code">Code</span></dt>
-          <dd>
-            <span>{{ orderRef.code }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.createBy">Create By</span></dt>
-          <dd>
-            <span>{{ orderRef.createBy }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.createDate">Create Date</span></dt>
-          <dd>
-            <span>{{ orderRef.createDate | formatMediumDate }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.finishDate">Finish Date</span></dt>
-          <dd>
-            <span>{{ orderRef.finishDate | formatMediumDate }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.status">Status</span></dt>
-          <dd>
-            <span [jhiTranslate]="'smartDryerApp.OrderStatus.' + (orderRef.status ?? 'null')">{{
-              { null: '', NEW: 'NEW', ASSIGNED: 'ASSIGNED', CANCEL: 'CANCEL', DELAY: 'DELAY', HOLD: 'HOLD', FINISH: 'FINISH' }[
-                orderRef.status ?? 'null'
-              ]
-            }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.amount">Amount</span></dt>
-          <dd>
-            <span>{{ orderRef.amount }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.saleNote">Sale Note</span></dt>
-          <dd>
-            <span>{{ orderRef.saleNote }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.techNote">Tech Note</span></dt>
-          <dd>
-            <span>{{ orderRef.techNote }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.note">Note</span></dt>
-          <dd>
-            <span>{{ orderRef.note }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.materialSource">Material Source</span></dt>
-          <dd>
-            <span>{{ orderRef.materialSource }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.cusName">Cus Name</span></dt>
-          <dd>
-            <span>{{ orderRef.cusName }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.cusAddress">Cus Address</span></dt>
-          <dd>
-            <span>{{ orderRef.cusAddress }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.cusMobile">Cus Mobile</span></dt>
-          <dd>
-            <span>{{ orderRef.cusMobile }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.imageURL">Image URL</span></dt>
-          <dd>
-            <span>{{ orderRef.imageURL }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.appointmentDate">Appointment Date</span></dt>
-          <dd>
-            <span>{{ orderRef.appointmentDate | formatMediumDate }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.activation">Activation</span></dt>
-          <dd>
-            <span>{{ orderRef.activation }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.assignBy">Assign By</span></dt>
-          <dd>
-            <span>{{ orderRef.assignBy }}</span>
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.customer">Customer</span></dt>
-          <dd>
-            @if (order()!.customer) {
-              <div>
-                <a [routerLink]="['/customer', order()!.customer?.id, 'view']">{{ orderRef.customer?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.sale">Sale</span></dt>
-          <dd>
-            @if (order()!.sale) {
-              <div>
-                <a [routerLink]="['/sale', order()!.sale?.id, 'view']">{{ orderRef.sale?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.staff">Staff</span></dt>
-          <dd>
-            @if (order()!.staff) {
-              <div>
-                <a [routerLink]="['/staff', order()!.staff?.id, 'view']">{{ orderRef.staff?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.sourceOrder">Source Order</span></dt>
-          <dd>
-            @if (order()!.sourceOrder) {
-              <div>
-                <a [routerLink]="['/source-order', order()!.sourceOrder?.id, 'view']">{{ orderRef.sourceOrder?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.province">Province</span></dt>
-          <dd>
-            @if (order()!.province) {
-              <div>
-                <a [routerLink]="['/province', order()!.province?.id, 'view']">{{ orderRef.province?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.district">District</span></dt>
-          <dd>
-            @if (order()!.district) {
-              <div>
-                <a [routerLink]="['/district', order()!.district?.id, 'view']">{{ orderRef.district?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="smartDryerApp.order.ward">Ward</span></dt>
-          <dd>
-            @if (order()!.ward) {
-              <div>
-                <a [routerLink]="['/ward', order()!.ward?.id, 'view']">{{ orderRef.ward?.id }}</a>
-              </div>
-            }
-          </dd>
-        </dl>
-
-        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-        </button>
-
-        <button type="button" [routerLink]="['/order', orderRef.id, 'edit']" class="btn btn-primary">
-          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-        </button>
-      </div>
-    }
+<form name="viewForm">
+  <div class="modal-header">
+    <h4 class="modal-title" jhiTranslate="entity.action.view">View Order Details</h4>
   </div>
-</div>
+
+  <div class="modal-body">
+    <dl class="row-md jh-entity-details">
+      <dt><span jhiTranslate="global.field.id">ID</span></dt>
+      <dd>{{ order?.id }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.code">Code</span></dt>
+      <dd>{{ order?.code }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.createBy">Create By</span></dt>
+      <dd>{{ order?.createBy }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.createDate">Create Date</span></dt>
+      <dd>{{ order?.createDate | formatMediumDate }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.finishDate">Finish Date</span></dt>
+      <dd>{{ order?.finishDate | formatMediumDate }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.status">Status</span></dt>
+      <dd>
+        <span jhiTranslate="smartDryerApp.OrderStatus.{{ order?.status }}">
+          {{
+            { null: '', NEW: 'NEW', ASSIGNED: 'ASSIGNED', CANCEL: 'CANCEL', DELAY: 'DELAY', HOLD: 'HOLD', FINISH: 'FINISH' }[
+              order?.status ?? 'null'
+            ]
+          }}
+        </span>
+      </dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.amount">Amount</span></dt>
+      <dd>{{ order?.amount }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.saleNote">Sale Note</span></dt>
+      <dd>{{ order?.saleNote }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.techNote">Tech Note</span></dt>
+      <dd>{{ order?.techNote }}</dd>
+
+      <dt><span jhiTranslate="smartDryerApp.order.note">Note</span></dt>
+      <dd>
+        <textarea class="form-control" rows="4" readonly>{{ order?.note }}</textarea>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-end">
+    <button type="button" id="close_btn" class="btn btn-info" data-dismiss="modal" (click)="back()">
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Cancel</span>
+    </button>
+  </div>
+</form>

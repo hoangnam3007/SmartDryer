@@ -1,0 +1,49 @@
+<form [formGroup]="editForm" (ngSubmit)="update()">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Order Details</h4>
+  </div>
+
+  <div class="modal-body">
+    <div class="mb-3">
+      <label for="cusAddress" class="form-label">Customer Address</label>
+      <input type="text" id="cusAddress" class="form-control" formControlName="cusAddress" />
+      <div *ngIf="editForm.get('cusAddress')?.invalid && (editForm.get('cusAddress')?.touched || editForm.get('cusAddress')?.dirty)">
+        <small class="form-text text-danger" *ngIf="editForm.get('cusAddress')?.errors?.required"> Customer Address is required. </small>
+        <small class="form-text text-danger" *ngIf="editForm.get('cusAddress')?.errors?.maxlength">
+          Address must be less than 100 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="techNote" class="form-label">Tech Note</label>
+      <textarea id="techNote" class="form-control" rows="4" formControlName="techNote"></textarea>
+      <div *ngIf="editForm.get('techNote')?.invalid && (editForm.get('techNote')?.touched || editForm.get('techNote')?.dirty)">
+        <small class="form-text text-danger" *ngIf="editForm.get('techNote')?.errors?.maxlength">
+          Tech Note must be less than 500 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="appointmentDate" class="form-label">Appointment Date</label>
+      <input type="date" id="appointmentDate" class="form-control" formControlName="appointmentDate" />
+      <div
+        *ngIf="
+          editForm.get('appointmentDate')?.invalid && (editForm.get('appointmentDate')?.touched || editForm.get('appointmentDate')?.dirty)
+        "
+      >
+        <small class="form-text text-danger" *ngIf="editForm.get('appointmentDate')?.errors?.required">
+          Appointment Date is required.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()"><fa-icon icon="ban"></fa-icon>&nbsp;Cancel</button>
+    <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+      <fa-icon icon="save"></fa-icon>&nbsp;Save
+    </button>
+  </div>
+</form>

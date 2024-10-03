@@ -108,18 +108,18 @@ export class OrderService {
   protected convertDateFromClient<T extends IOrder | NewOrder | PartialUpdateOrder>(order: T): RestOf<T> {
     return {
       ...order,
-      createDate: order.createDate?.format(DATE_FORMAT) ?? null,
-      finishDate: order.finishDate?.format(DATE_FORMAT) ?? null,
-      appointmentDate: order.appointmentDate?.format(DATE_FORMAT) ?? null,
+      createDate: order.createDate ? dayjs(order.createDate).format(DATE_FORMAT) : null,
+      finishDate: order.finishDate ? dayjs(order.finishDate).format(DATE_FORMAT) : null,
+      appointmentDate: order.appointmentDate ? dayjs(order.appointmentDate).format(DATE_FORMAT) : null,
     };
   }
 
   protected convertDateFromServer(restOrder: RestOrder): IOrder {
     return {
       ...restOrder,
-      createDate: restOrder.createDate ? dayjs(restOrder.createDate) : undefined,
-      finishDate: restOrder.finishDate ? dayjs(restOrder.finishDate) : undefined,
-      appointmentDate: restOrder.appointmentDate ? dayjs(restOrder.appointmentDate) : undefined,
+      createDate: restOrder.createDate ? dayjs(restOrder.createDate) : null,
+      finishDate: restOrder.finishDate ? dayjs(restOrder.finishDate) : null,
+      appointmentDate: restOrder.appointmentDate ? dayjs(restOrder.appointmentDate) : null,
     };
   }
 

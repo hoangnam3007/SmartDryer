@@ -1,5 +1,6 @@
 package com.project.web.rest;
 
+import com.project.domain.Order;
 import com.project.repository.OrderRepository;
 import com.project.service.OrderService;
 import com.project.service.dto.OrderDTO;
@@ -69,7 +70,7 @@ public class OrderResource {
     /**
      * {@code PUT  /orders/:id} : Updates an existing order.
      *
-     * @param id the id of the orderDTO to save.
+     * @param id       the id of the orderDTO to save.
      * @param orderDTO the orderDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated orderDTO,
      * or with status {@code 400 (Bad Request)} if the orderDTO is not valid,
@@ -102,7 +103,7 @@ public class OrderResource {
     /**
      * {@code PATCH  /orders/:id} : Partial updates given fields of an existing order, field will ignore if it is null
      *
-     * @param id the id of the orderDTO to save.
+     * @param id       the id of the orderDTO to save.
      * @param orderDTO the orderDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated orderDTO,
      * or with status {@code 400 (Bad Request)} if the orderDTO is not valid,
@@ -187,5 +188,22 @@ public class OrderResource {
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    // Endpoint to check if a specific staff member has orders
+    @GetMapping("/staff/{staffId}/has-orders")
+    public ResponseEntity<Boolean> hasOrders(@PathVariable Long staffId) {
+        boolean hasOrders = orderService.hasOrders(staffId);
+        return ResponseEntity.ok(hasOrders);
+    }
+
+    // Endpoint to get all orders for a specific staff
+    @GetMapping("/staff/{staffId}/orders")
+    public ResponseEntity<List<Order>> getOrdersForStaff(@PathVariable Long staffId, Pageable pageable) {
+        LOG.debug("REST request to get Orders for Staff : {}", staffId);
+
+        Page<Order> orders = orderService.getOrdersForStaff(staffId, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), orders);
+        return ResponseEntity.ok().headers(headers).body(orders.getContent());
     }
 }

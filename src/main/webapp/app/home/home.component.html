@@ -124,27 +124,86 @@
             </div>
           </div>
         </div>
+
+        <!-- Staff View for Orders -->
+        <div *ngIf="account?.staff?.id">
+          <h2>Orders for Staff {{ account.staff.id }}</h2>
+
+          <!-- If there are orders -->
+          <div *ngIf="hasOrders === true">
+            <!-- Add additional content for orders if needed -->
+            <div class="table-responsive">
+              <table class="table table-striped" aria-describedby="order-management-page-heading">
+                <thead>
+                  <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Created Date</th>
+                    <th scope="col">Finish Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Customer Address</th>
+                    <th scope="col">Customer Mobile</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let order of orders">
+                    <td>{{ order.code }}</td>
+                    <td>{{ order.createBy }}</td>
+                    <td>{{ order.createDate }}</td>
+                    <td>{{ order.finishDate }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.cusName }}</td>
+                    <td>{{ order.cusAddress }}</td>
+                    <td>{{ order.cusMobile }}</td>
+                    <td>
+                      <div class="btn-group">
+                        <!-- Contact Button with fa-phone -->
+                        <button type="button" (click)="contactModal(order)" class="btn btn-info btn-sm me-2">
+                          <fa-icon icon="envelope"></fa-icon>
+                          <span class="d-none d-md-inline">Contact</span>
+                        </button>
+
+                        <!-- Plan Button with fa-calendar-alt -->
+                        <button type="button" (click)="planModal(order)" class="btn btn-warning btn-sm me-2">
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                          <span class="d-none d-md-inline">Plan</span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- If there are no orders -->
+          <div *ngIf="hasOrders === false">
+            <p>No orders found for this staff member.</p>
+          </div>
+        </div>
       </div>
+
+      <!-- User Not Logged In View -->
+      <div *ngIf="!account">
+        <div class="alert alert-warning">
+          <span>If you want to </span>
+          <a class="alert-link" (click)="login()">sign in</a
+          ><span
+            >, you can try the default accounts:<br />
+            - Administrator (login="admin" and password="admin") <br />
+            - User (login="user" and password="user").</span
+          >
+        </div>
+
+        <div class="alert alert-warning">
+          <span>You don&apos;t have an account yet?</span>&nbsp;
+          <a class="alert-link" routerLink="/account/register">Register a new account</a>
+        </div>
+      </div>
+
+      <p>If you have any questions on JHipster:</p>
     </div>
-
-    <!-- User Not Logged In View -->
-    <div *ngIf="!account">
-      <div class="alert alert-warning">
-        <span>If you want to </span>
-        <a class="alert-link" (click)="login()">sign in</a
-        ><span
-          >, you can try the default accounts:<br />
-          - Administrator (login="admin" and password="admin") <br />
-          - User (login="user" and password="user").</span
-        >
-      </div>
-
-      <div class="alert alert-warning">
-        <span>You don&apos;t have an account yet?</span>&nbsp;
-        <a class="alert-link" routerLink="/account/register">Register a new account</a>
-      </div>
-    </div>
-
-    <p>If you have any questions on JHipster:</p>
   </div>
 </div>

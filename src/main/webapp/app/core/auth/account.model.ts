@@ -1,3 +1,5 @@
+import { IStaff } from '../../entities/staff/staff.model';
+import { ISale } from '../../entities/sale/sale.model';
 export class Account {
   constructor(
     public activated: boolean,
@@ -8,5 +10,7 @@ export class Account {
     public lastName: string | null,
     public login: string,
     public imageUrl: string | null,
+    public staff?: Pick<IStaff, 'id'> | null,
+    public sale?: Pick<ISale, 'id'> | null,
   ) {}
 }

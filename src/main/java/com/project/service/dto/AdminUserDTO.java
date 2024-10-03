@@ -2,6 +2,8 @@ package com.project.service.dto;
 
 import com.project.config.Constants;
 import com.project.domain.Authority;
+import com.project.domain.Sale; // Assuming this is your Sale entity
+import com.project.domain.Staff; // Assuming this is your Staff entity
 import com.project.domain.User;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -10,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * A DTO representing a user, with his authorities.
+ * A DTO representing a user, with their authorities, staff, and sale information.
  */
 public class AdminUserDTO implements Serializable {
 
@@ -51,10 +53,17 @@ public class AdminUserDTO implements Serializable {
 
     private Set<String> authorities;
 
+    // Added fields for staff and sale
+    private Staff staff; // Or you can use staff ID, depending on your requirements
+    private Sale sale; // Or sale ID, depending on your requirements
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
 
+    /**
+     * Constructor to initialize an AdminUserDTO from a User entity.
+     */
     public AdminUserDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
@@ -69,8 +78,13 @@ public class AdminUserDTO implements Serializable {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+
+        // Initialize staff and sale if they exist in the User entity
+        this.staff = user.getStaff(); // Assuming `getStaff()` returns a `Staff` entity or null if not present
+        this.sale = user.getSale(); // Assuming `getSale()` returns a `Sale` entity or null if not present
     }
 
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -175,22 +189,67 @@ public class AdminUserDTO implements Serializable {
         this.authorities = authorities;
     }
 
-    // prettier-ignore
+    // Getters and setters for staff and sale
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+
+    // Override toString method for better logging and debugging
     @Override
     public String toString() {
-        return "AdminUserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
+        return (
+            "AdminUserDTO{" +
+            "id=" +
+            id +
+            ", login='" +
+            login +
+            '\'' +
+            ", firstName='" +
+            firstName +
+            '\'' +
+            ", lastName='" +
+            lastName +
+            '\'' +
+            ", email='" +
+            email +
+            '\'' +
+            ", imageUrl='" +
+            imageUrl +
+            '\'' +
+            ", activated=" +
+            activated +
+            ", langKey='" +
+            langKey +
+            '\'' +
+            ", createdBy='" +
+            createdBy +
+            '\'' +
+            ", createdDate=" +
+            createdDate +
+            ", lastModifiedBy='" +
+            lastModifiedBy +
+            '\'' +
+            ", lastModifiedDate=" +
+            lastModifiedDate +
+            ", authorities=" +
+            authorities +
+            ", staff=" +
+            (staff != null ? staff.getId() : "null") + // Display staff ID if available
+            ", sale=" +
+            (sale != null ? sale.getId() : "null") + // Display sale ID if available
+            '}'
+        );
     }
 }

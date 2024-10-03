@@ -4,6 +4,7 @@ import com.project.domain.Order;
 import com.project.repository.OrderRepository;
 import com.project.service.dto.OrderDTO;
 import com.project.service.mapper.OrderMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,5 +113,15 @@ public class OrderService {
     public void delete(Long id) {
         LOG.debug("Request to delete Order : {}", id);
         orderRepository.deleteById(id);
+    }
+
+    // Method to check if a specific staff member has orders
+    public boolean hasOrders(Long staffId) {
+        return orderRepository.existsByStaffId(staffId);
+    }
+
+    // Method to get all orders for a specific staff
+    public Page<Order> getOrdersForStaff(Long staffId, Pageable pageable) {
+        return orderRepository.findByStaffId(staffId, pageable);
     }
 }

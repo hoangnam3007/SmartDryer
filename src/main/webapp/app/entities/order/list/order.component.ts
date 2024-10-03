@@ -16,7 +16,7 @@ import { IOrder, Order } from '../order.model';
 import { IStaff } from '../../staff/staff.model';
 import { EntityArrayResponseType, OrderService } from '../service/order.service';
 import { OrderDeleteDialogComponent } from '../delete/order-delete-dialog.component';
-
+import { OrderDetailComponent } from '../detail/order-detail.component';
 @Component({
   standalone: true,
   selector: 'jhi-order',
@@ -130,6 +130,15 @@ export class OrderComponent implements OnInit {
       next: staff => {
         const modalRef = this.modalService.open(AssignOrderComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.order = order; // Pass the order to the modal
+      },
+    });
+  }
+
+  viewOrder(order: IOrder): void {
+    this.orderService.find(order.id).subscribe({
+      next: () => {
+        const modalRef = this.modalService.open(OrderDetailComponent, { size: 'lg', backdrop: 'static' });
+        modalRef.componentInstance.order = order;
       },
     });
   }

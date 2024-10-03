@@ -15,18 +15,25 @@ import { SortByDirective, SortDirective, SortService, SortState, sortStateSignal
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ItemCountComponent } from 'app/shared/pagination';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { Order } from '../entities/order/order.model';
+import SharedModule from 'app/shared/shared.module';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrderService } from '../entities/order/service/order.service';
+import { ContactModalComponent } from './contact-modal/contact-modal.component';
+import { PlanModalComponent } from './plan-modal/plan-modal.component';
 @Component({
   standalone: true,
   selector: 'jhi-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ItemCountComponent, NgbPaginationModule], // Removed SharedModule
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ItemCountComponent, NgbPaginationModule, SharedModule], // Removed SharedModule
 })
 export default class HomeComponent implements OnInit, OnDestroy {
   isSubmit = false;
   account: any = null;
 
   customerSignal = signal<Customer[] | null>(null);
+  orderSignal = signal<Order[] | null>(null);
   submitSuccess = false;
   name = '';
   email = '';
@@ -37,7 +44,6 @@ export default class HomeComponent implements OnInit, OnDestroy {
   selectedDistrictId: number | null = null;
   selectedWardId: number | null = null;
   status: keyof typeof CusStatus = CusStatus.NEW;
-  // Arrays for provinces, districts, and wards
   provinces: any[] = [];
   districts: any[] = [];
   wards: any[] = [];
@@ -47,21 +53,28 @@ export default class HomeComponent implements OnInit, OnDestroy {
   itemsPerPage = ITEMS_PER_PAGE;
   page!: number;
   sortState = sortStateSignal({});
+  hasOrders = false;
 
+  protected modalService = inject(NgbModal);
   private readonly destroy$ = new Subject<void>();
   private accountService = inject(AccountService);
   private homeService = inject(HomeService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private sortService = inject(SortService);
-
+  private orderService = inject(OrderService);
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(account => (this.account = account));
+      .subscribe(account => {
+        this.account = account;
+        if (this.account?.staff?.id) {
+          this.checkHasOrder();
+          this.getOrderForStaff();
+        }
+      });
 
-    // Fetch the location data (provinces, districts, wards)
     this.homeService.getLocations().subscribe({
       next: data => {
         this.provinces = data.provinces.map((province: { id: number; name: string }) => ({
@@ -75,51 +88,47 @@ export default class HomeComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  // Update the address when province, district, or ward changes
   updateAddress(): void {
     const province = this.provinces.find(p => p.id === this.selectedProvinceId)?.name ?? '';
     const district = this.filterDistricts.find(d => d.id === this.selectedDistrictId)?.name ?? '';
     const ward = this.filterWards.find(w => w.id === this.selectedWardId)?.name ?? '';
-    // Only join non-empty parts
     this.address = [ward, district, province].filter(Boolean).join(', ');
   }
-  // Filter districts when a province is selected
+
   onProvinceChange(event: Event): void {
     const selectedProvinceId = Number((event.target as HTMLSelectElement).value);
     this.filterDistricts = this.districts.filter(district => district.province?.id === selectedProvinceId);
-    this.filterWards = []; // Reset wards
-    this.updateAddress(); // Update the address after change
+    this.filterWards = [];
+    this.updateAddress();
   }
 
-  // Filter wards when a district is selected
   onDistrictChange(event: Event): void {
     const selectedDistrictId = Number((event.target as HTMLSelectElement).value);
     this.filterWards = this.wards.filter(ward => ward.district?.id === selectedDistrictId);
-    this.updateAddress(); // Update the address after change
+    this.updateAddress();
   }
 
   onWardChange(): void {
-    this.updateAddress(); // Update the address after ward change
+    this.updateAddress();
   }
 
   submit(): void {
     this.updateAddress();
     const customer: ICustomer = {
       id: 0,
-      userName: this.name, // Map name to userName or displayName
+      userName: this.name,
       displayName: this.name,
       email: this.email,
       mobile: this.phone,
       address: this.address,
       note: this.message,
-      status: 'NEW', // Assuming this maps to the CusStatus enum
-      createDate: dayjs(), // Get the current date
-      province: this.selectedProvinceId ? { id: this.selectedProvinceId } : null, // Ensure correct referencing of IDs
+      status: 'NEW',
+      createDate: dayjs(),
+      province: this.selectedProvinceId ? { id: this.selectedProvinceId } : null,
       district: this.selectedDistrictId ? { id: this.selectedDistrictId } : null,
       ward: this.selectedWardId ? { id: this.selectedWardId } : null,
     };
-    // alert('Customer Data JSON:\n' + JSON.stringify(customer, null, 2));
-    // Call the service to create the new customer
+
     this.homeService.createCustomer(customer).subscribe({
       next: response => {
         this.submitSuccess = true;
@@ -132,7 +141,6 @@ export default class HomeComponent implements OnInit, OnDestroy {
   }
 
   resetForm(): void {
-    // Clear all form fields and reset the address
     this.name = '';
     this.email = '';
     this.phone = '';
@@ -141,12 +149,10 @@ export default class HomeComponent implements OnInit, OnDestroy {
     this.selectedProvinceId = null;
     this.selectedDistrictId = null;
     this.selectedWardId = null;
-    // Reset filtered lists for districts and wards
     this.filterDistricts = [];
     this.filterWards = [];
   }
 
-  // Simple login method
   login(): void {
     this.router.navigate(['/login']);
   }
@@ -162,6 +168,10 @@ export default class HomeComponent implements OnInit, OnDestroy {
 
   get Customers(): Customer[] | null {
     return this.customerSignal();
+  }
+
+  get orders(): Order[] | null {
+    return this.orderSignal();
   }
 
   loadAll(): void {
@@ -188,8 +198,65 @@ export default class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  checkHasOrder(): void {
+    this.homeService.hasOrder(this.account.staff.id).subscribe(result => {
+      this.hasOrders = result;
+    });
+  }
+
+  getOrderForStaff(): void {
+    this.homeService
+      .getOrderForStaff(this.account.staff.id, {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sortService.buildSortParam(this.sortState(), 'id'),
+      })
+      .subscribe({
+        next: (res: HttpResponse<Order[]>) => {
+          // alert('Order data: ' + JSON.stringify(res.body, null, 2));
+          this.orderForStaff(res.body, res.headers);
+        },
+      });
+  }
+
+  contactModal(order: Order): void {
+    this.orderService.find(order.id).subscribe({
+      next: () => {
+        const modalRef = this.modalService.open(ContactModalComponent, { size: 'lg', backdrop: 'static' });
+        modalRef.componentInstance.order = order;
+        // Listen to the modal close event and reload the orders
+        modalRef.result.then(result => {
+          if (result === 'save') {
+            this.getOrderForStaff();
+          }
+        });
+      },
+    });
+  }
+
+  planModal(order: Order): void {
+    this.orderService.find(order.id).subscribe({
+      next: () => {
+        const modalRef = this.modalService.open(PlanModalComponent, { size: 'lg', backdrop: 'static' });
+        modalRef.componentInstance.order = order;
+        // Listen to the modal close event and reload the orders
+        modalRef.result.then(result => {
+          if (result === 'save') {
+            this.getOrderForStaff();
+          }
+        });
+      },
+    });
+  }
+
   private onSuccess(customers: Customer[] | null, headers: HttpHeaders): void {
     this.totalItems.set(Number(headers.get('X-Total-Count')));
     this.customerSignal.set(customers);
+  }
+
+  private orderForStaff(order: Order[] | null, headers: HttpHeaders): void {
+    this.totalItems.set(Number(headers.get('X-Total-Count')));
+    this.orderSignal.set(order);
+    // alert('Order data: ' + JSON.stringify(order, null, 2));
   }
 }

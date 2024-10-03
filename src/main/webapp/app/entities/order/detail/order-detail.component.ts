@@ -1,20 +1,24 @@
-import { Component, input } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
+import { Component, Input, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import SharedModule from 'app/shared/shared.module';
 import { DurationPipe, FormatMediumDatePipe, FormatMediumDatetimePipe } from 'app/shared/date';
-import { IOrder } from '../order.model';
+import { IOrder, Order } from '../order.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
   selector: 'jhi-order-detail',
   templateUrl: './order-detail.component.html',
-  imports: [SharedModule, RouterModule, DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe],
+  imports: [SharedModule, DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe],
 })
 export class OrderDetailComponent {
-  order = input<IOrder | null>(null);
+  @Input() order: IOrder | null = null;
+  protected modalService = inject(NgbModal);
+  private activeModal = inject(NgbActiveModal);
+  private router = inject(Router);
 
-  previousState(): void {
-    window.history.back();
+  back(): void {
+    this.activeModal.close();
   }
 }
